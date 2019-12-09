@@ -30,6 +30,7 @@
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
     "graphql": "^15.3.0",
+    "jsonwebtoken": "^8.5.1",
     "nest-router": "^1.0.9",
     "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",

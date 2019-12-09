@@ -8,6 +8,7 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception'
 import { HttpStatus } from '@nestjs/common'
 import { validate } from 'class-validator'
 import * as argon2 from 'argon2'
+const jwt = require('jsonwebtoken')
 
 @Injectable()
 export class UserService {
