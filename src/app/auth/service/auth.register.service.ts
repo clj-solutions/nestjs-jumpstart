@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AuthRegisterDto } from '../dto/auth.register.dto'
 import * as bcrypt from 'bcrypt'
-import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { User } from '../../user/user.entity'
 
@@ -14,7 +13,7 @@ export class UserDuplicatedEmailException extends Error {
 
 @Injectable()
 export default class AuthRegisterService {
-  constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
+  constructor(private userRepository: Repository<User>) {}
 
   async call(params: AuthRegisterDto): Promise<any> {
     this.ensureUserNotExist(params.email);
