@@ -1,0 +1,5 @@
+import { Injectable } from '@nestjs/common'
+import { User } from '../user/user.entity'
+import { AuthRegisterDto } from './dto/auth.register.dto'
+import { JwtService } from '@nestjs/jwt'
+import { AuthTokenDto } from './dto/auth.token.dto'

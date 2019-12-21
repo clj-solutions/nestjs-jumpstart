@@ -5,11 +5,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { UserModule } from './app/user/user.module';
 import { RouterModule, Routes } from 'nest-router';
+import { AuthModule } from './app/auth/auth.module';
 
 const routes: Routes = [
   {
     path: '/v1',
     children: [
+      {
+        path: '/auth',
+        module: AuthModule,
+      },
       {
         path: '/users',
         module: UserModule
@@ -22,7 +27,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoutes(routes),
     TypeOrmModule.forRoot(), 
-    UserModule
+    UserModule, AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
