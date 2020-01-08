@@ -1,17 +1,20 @@
-import { Controller, Get, Post, Body, HttpException } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpException, UseGuards, Req } from '@nestjs/common';
+import { ApiOperation, ApiTags, ApiBearerAuth, } from '@nestjs/swagger'
 import { UserLoginDto } from './dto/user.login.dto';
 import { User } from './user.entity'
 import { UserService } from './users.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@ApiBearerAuth()
+@ApiTags('User')
 @Controller()
+@UseGuards(JwtAuthGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  public async login(@Body() loginDto: UserLoginDto): Promise<User> {
-    const _user = await this.userService.findOne(loginDto);
-    const errors = {User: ' not found'};
-    if(!_user) throw new HttpException({errors}, 401);
-
-
+  @Get('profile')
+  @ApiOperation({description: 'Get user profile'})
+  public async me(@Req() req: Request) {
+    return this.userService.find
   }
 }

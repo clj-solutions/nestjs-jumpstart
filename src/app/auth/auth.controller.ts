@@ -1,7 +1,11 @@
-import { Controller, Inject, Logger, LoggerService, Post, HttpStatus, Body, HttpCode, UseGuards, Request, BadRequestException } from '@nestjs/common';
+import { Controller, Inject, Logger, LoggerService, Post, HttpStatus, Body, HttpCode, UseGuards, Req, Request, BadRequestException } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiOkResponse, ApiUnauthorizedResponse } from '@nestjs/swagger'
 import { AuthRegisterDto } from './dto/auth.register.dto'
 import { AuthLoginDto } from './dto/auth.login.dto'
+import { AuthService } from './auth.service'
+import * as Express from 'express'
+import { AuthTokenDto } from './dto/auth.token.dto'
+import { LocalAuthGuard } from './local-auth.guard'
 
 @ApiTags('Auth')
 @Controller()
@@ -25,5 +29,19 @@ export class AuthController {
     }
   }
 
-  
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    description: 'Email & password login endpoint for authentication'
+  })
+  @ApiOkResponse({
+    description: 'Return JWT token'
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Cannot authorize with given username and password'
+  })
+  async login(@Request() req): Promise<AuthTokenDto> {
+    return await this.authService.login(req.user);
+  }
 }
