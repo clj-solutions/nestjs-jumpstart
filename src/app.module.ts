@@ -27,7 +27,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoutes(routes),
     TypeOrmModule.forRoot(), 
-    UserModule, AuthModule
+    UserModule, 
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

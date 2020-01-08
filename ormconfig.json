@@ -6,5 +6,6 @@
   "password": "password",
   "database": "nestjs",
   "entities": ["dist/**/*.entity{.ts, .js}"],
-  "synchronize": "true"
+  "synchronize": "true",
+  "migrations": ["src/db/*{.ts, .js}"]
 }
