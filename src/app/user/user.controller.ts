@@ -1,7 +1,5 @@
-import { Controller, Get, Post, Body, HttpException, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, UseGuards, Req } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiBearerAuth, } from '@nestjs/swagger'
-import { UserLoginDto } from './dto/user.login.dto';
-import { User } from './user.entity'
 import { UserService } from './users.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
@@ -14,7 +12,7 @@ export class UserController {
 
   @Get('profile')
   @ApiOperation({description: 'Get user profile'})
-  public async me(@Req() req: Request) {
-    return this.userService.find
+  public async profile(@Req() req) {
+    return this.userService.find(req.user.id)
   }
 }
