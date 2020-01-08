@@ -5,7 +5,8 @@
   "username": "nest",
   "password": "password",
   "database": "nestjs",
-  "entities": ["dist/**/*.entity{.ts, .js}"],
+  "entities": ["dist/**/**.entity{.ts,.js}"],
   "synchronize": "true",
-  "migrations": ["src/db/*{.ts, .js}"]
+  "migrations": ["src/db/*{.ts, .js}"],
+  "migrationsRun": false
 }
