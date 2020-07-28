@@ -13,6 +13,6 @@ export class UserController {
   @Get('profile')
   @ApiOperation({description: 'Get user profile'})
   public async profile(@Req() req) {
-    return this.userService.find(req.user.id)
+    return this.userService.find(req.user.id);
   }
 }
