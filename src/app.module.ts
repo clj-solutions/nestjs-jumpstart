@@ -6,6 +6,7 @@ import { Connection } from 'typeorm';
 import { UserModule } from './app/user/user.module';
 import { RouterModule, Routes } from 'nest-router';
 import { AuthModule } from './app/auth/auth.module';
+import { TYPEORM_MODULE_OPTIONS } from './config/database';
 
 const routes: Routes = [
   {
@@ -26,7 +27,7 @@ const routes: Routes = [
 @Module({
   imports: [
     RouterModule.forRoutes(routes),
-    TypeOrmModule.forRoot(), 
+    TypeOrmModule.forRoot(TYPEORM_MODULE_OPTIONS), 
     UserModule, 
     AuthModule
   ],
