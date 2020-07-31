@@ -1,10 +1,17 @@
+import { Factory } from 'fishery'
+import { internet, name } from 'faker'
 import { User } from './user.entity'
-export const factory = require('factory-girl').factory
 
-factory.define('user', User, {
-  id: factory.sequence('user.id', (n) => n),
-  email: factory.sequence('user.email', n => `dummy-user-${n}@test.com`),
-  firstName: factory.chance('first'),
-  lastName: factory.chance('last'),
-  passwordHash: ''
-})
+export default Factory.define<User>(
+  ({sequence}) => {
+    return {
+      id: sequence,
+      email: internet.email(),
+      firstName: name.firstName(),
+      lastName: name.lastName(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      passwordHash: ""
+    }
+  }
+)
