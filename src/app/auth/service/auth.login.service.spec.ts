@@ -36,10 +36,13 @@ describe('AuthLoginService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should call sign() method once.', async () => {
+  it('should call JwtService.sign() method once.', async () => {
     authTokenDto = await service.call(user);
-
     expect(jwtServiceSignSpy).toHaveBeenCalled();
+  })
+
+  it('should return auth-token-dto.', async () => {
+    authTokenDto = await service.call(user);
     expect(authTokenDto.token).toBe(testTokenValue);
     expect(authTokenDto.uid).toBe(user.id);
   })
