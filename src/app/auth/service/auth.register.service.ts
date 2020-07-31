@@ -15,7 +15,7 @@ export class UserDuplicatedEmailException extends Error {
 export default class AuthRegisterService {
   constructor(private userRepository: Repository<User>) {}
 
-  async call(params: AuthRegisterDto): Promise<any> {
+  async call(params: AuthRegisterDto): Promise<User> {
     this.ensureUserNotExist(params.email);
 
     const { password, ...userParams } = params;
