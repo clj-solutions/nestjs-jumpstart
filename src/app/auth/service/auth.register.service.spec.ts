@@ -1,10 +1,6 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import AuthRegisterService from './auth.register.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../../user/user.entity';
-import { AuthRegisterDto } from '../dto/auth.register.dto';
-import { AuthService } from '../auth.service';
 import factory from '../../user/user.factory';
 
 describe('AuthRegisterService', () => {
@@ -40,16 +36,33 @@ describe('AuthRegisterService', () => {
       for(let i=0; i<testRepositorySize; i++) {
         userRepository.push(factory.build());
       }
+      jest.clearAllMocks();
     })
 
-    it('should add a new user into users repository.', async() => {
+    it('should add a new user into users repository.', async () => {
       const user = factory.build();
       const authRegisterDto = {email: user.email, firstName: user.firstName, 
       lastName: user.lastName, password: "password"};
 
-      await service.call(authRegisterDto);
+      const newUser = await service.call(authRegisterDto);
       expect(repositoryFindOneSpy).toHaveBeenCalled();
       expect(repositorySaveSpy).toHaveBeenCalled();
+      expect(userRepository.length).toBe(testRepositorySize + 1);
+      expect(newUser.passwordHash).not.toBe('');
     })
+
+    it('should thrown an error while trying to register same email.', async () => {
+      const user = factory.build();
+      user.email = userRepository[0].email;
+
+      const authRegisterDto = {email: user.email, firstName: user.firstName, lastName: user.lastName, password: "password"};
+      service.call(authRegisterDto).catch(e => {
+        expect(e.message).toMatch(/already/);
+      })
+      
+      expect(repositoryFindOneSpy).toHaveBeenCalled();
+      expect(repositorySaveSpy).not.toHaveBeenCalled();
+    });
+
   });  
 });
