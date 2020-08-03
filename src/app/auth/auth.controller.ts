@@ -17,7 +17,7 @@ export class AuthController {
   @ApiOperation({
     description: 'Signup endpoint for authentication'
   })
-  public async register(@Body() params: AuthRegisterDto): Promise<any> {
+  public async register(@Body() params: AuthRegisterDto): Promise<AuthTokenDto> {
     try {
       const user = await this.authService.register(params)
 
@@ -39,7 +39,7 @@ export class AuthController {
   @ApiUnauthorizedResponse({
     description: 'Cannot authorize with given username and password'
   })
-  async login(@Request() req): Promise<AuthTokenDto> {
+  async login(@Request() req: any): Promise<AuthTokenDto> {
     return await this.authService.login(req.user);
   }
 }
