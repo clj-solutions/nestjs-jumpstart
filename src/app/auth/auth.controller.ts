@@ -3,6 +3,7 @@ import { ApiOperation, ApiTags, ApiOkResponse, ApiUnauthorizedResponse } from '@
 import { AuthRegisterDto } from './dto/auth.register.dto'
 import { AuthService } from './auth.service'
 import { AuthTokenDto } from './dto/auth.token.dto'
+import { AuthLoginDto } from './dto/auth.login.dto'
 import { LocalAuthGuard } from './local-auth.guard'
 
 @ApiTags('Auth')
@@ -39,7 +40,7 @@ export class AuthController {
   @ApiUnauthorizedResponse({
     description: 'Cannot authorize with given username and password'
   })
-  async login(@Request() req: any): Promise<AuthTokenDto> {
+  async login(/*Swagger hint*/@Body() params: AuthLoginDto, @Request() req: any): Promise<AuthTokenDto> {
     return await this.authService.login(req.user);
   }
 }

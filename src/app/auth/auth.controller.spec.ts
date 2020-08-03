@@ -99,7 +99,7 @@ describe('AuthController', () => {
       const request = {user: user2};
       let tokenDto: any;
       try{
-      tokenDto = await controller.login(request);
+      tokenDto = await controller.login(null, request);
       } catch(e) {
       }
 
