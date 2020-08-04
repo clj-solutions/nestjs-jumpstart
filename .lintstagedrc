@@ -1,0 +1,7 @@
+{
+  "src/**/*.{ts}": [
+    "prettier --write",
+    "prettier --check",
+    "eslint --fix-dry-run"
+  ]
+}
