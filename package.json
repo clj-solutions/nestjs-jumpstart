@@ -35,7 +35,7 @@
     "argon2": "^0.26.2",
     "bcrypt": "^5.0.0",
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.12.2",
+    "class-validator": "^0.14.0",
     "faker": "^4.1.0",
     "fishery": "^1.0.1",
     "graphql": "^15.3.0",
